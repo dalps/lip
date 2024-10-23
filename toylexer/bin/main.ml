@@ -5,12 +5,16 @@ open Toylexer.Main
 let read_line () =
   try Some(read_line())
   with End_of_file -> None
-  
+
+let rec loop () =
+  (match read_line() with
+  | Some s when s<>"" -> s |> lexer |> string_of_tokenlist |> print_endline
+  | _ -> print_newline());
+  loop ()
+
 let () = match Array.length(Sys.argv) with
   (* read input from stdin and print list of tokens *) 
-    1 -> (match read_line() with
-        Some s when s<>"" -> s |> lexer |> string_of_tokenlist |> print_endline
-      | _ -> print_newline())
+    1 -> loop ()
   (* read input from stdin and print frequencies *) 
   | 3 when Sys.argv.(1)="freq"
     -> (match read_line() with
