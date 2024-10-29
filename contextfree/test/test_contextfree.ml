@@ -5,9 +5,13 @@ open Exercises
 
 let to_string = string_of_sentform
 
-(** Complete the tests below.
-    For each test, provide the right sequence of
-    productions to generate the word on the right of the "=". *)
+let%test "example_test" = derive todo [ 0; 1; 0; 1; 2 ] |> to_string = "01011010"
+
+(** Following the example test, complete the tests below.
+
+    For each test, provide the right sequence of productions
+    to generate the word on the right of the "=".
+*)
 
 (* #### Exercise 1 *)
 let%test "zero_n_one_n_1" = derive zero_n_one_n [ 0 ] |> to_string = ""
