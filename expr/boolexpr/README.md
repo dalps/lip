@@ -11,6 +11,8 @@ type boolExpr =
 
 To make it more interesting for you, the provided files contain bugs and missing definitions that you need to fix in order to make the project fully work. Solve the tasks in order as you read on.
 
+To make it more interesting for you, the provided files contain bugs and missing definitions that you need to fix in order to make the project fully work. Solve the tasks in order as you read on.
+
 ## Project setup
 
 To start, create a new project named `boolexpr` by launching the following command from the `expr` directory:
@@ -112,13 +114,18 @@ The last production parses an expression surrounded by parentheses.
 
 
 ## Task 1: Fix the parser bug
+## Task 1: Fix the parser bug
 
+There is a bug in the parser rules of the file [parser.mly](lib/parser.mly). But luckily Menhir is able to detect and report it when we build the project. To see where the bug is, run the following command from the `boolexpr` directory:
 There is a bug in the parser rules of the file [parser.mly](lib/parser.mly). But luckily Menhir is able to detect and report it when we build the project. To see where the bug is, run the following command from the `boolexpr` directory:
 
 ```
 dune build
 ```
 
+Can you understand the error message and fix the bug?
+
+---
 Can you understand the error message and fix the bug?
 
 ---
@@ -365,9 +372,12 @@ Translate the following requirements into OCaml unit tests:
 1. `"if (if (if false then false else false) then (if false then true else false) else (if true then false else true)) then (if false then true else false) else (if true then false else true)"` evaluates to `false`
 
 ## Task 5: Write unit tests for `trace1`
+## Task 5: Write unit tests for `trace1`
 
 Translate the following requirements into OCaml unit tests:
 
+1. `trace1` makes progress on any `If` expression (test at most three);
+1. If `trace1` can't make progress on an expression, then it is a value (Tip: use the `is_value` predicate from [lib/ast.ml](lib/ast.ml));
 1. `trace1` makes progress on any `If` expression (test at most three);
 1. If `trace1` can't make progress on an expression, then it is a value (Tip: use the `is_value` predicate from [lib/ast.ml](lib/ast.ml));
 1. The expression `"if (if false then false else false) then (if false then true else false) else (if true then false else true)"` is fully reduced no more than 10 steps.
