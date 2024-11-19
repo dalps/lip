@@ -1,0 +1,5 @@
+(library
+ (name toyparser))
+
+(menhir (modules parser))
+(ocamllex lexer)

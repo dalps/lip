@@ -4,6 +4,8 @@
 
 let white = [' ' '\t']+
 let num = ['0'-'9']|['1'-'9']['0'-'9']*
+let hexdigit = ['0'-'9''A'-'F''a'-'f']
+let hexnum = "0"['x''X']hexdigit+
 
 rule read_token =
   parse
@@ -11,5 +13,8 @@ rule read_token =
   | "(" { LPAREN }
   | ")" { RPAREN }
   | "+" { PLUS }
-  | num { CONST (Lexing.lexeme lexbuf) }
+  | "-" { MINUS }
+  | "*" { TIMES }
+  | "/" { DIVIDE }
+  | (num | hexnum) { CONST (Lexing.lexeme lexbuf) } (* Will be converted in the parser by [int_of_string] *)
   | eof { EOF }
