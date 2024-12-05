@@ -1,4 +1,4 @@
-projects = boolexpr andboolexpr arithexpr sarithexpr
+projects = blocks fun while
 
 main:
 	echo "\n\
