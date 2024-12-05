@@ -1,0 +1,52 @@
+
+** Conflict (shift/reduce) in state 39.
+** Token involved: SEQ
+** This state is reached from prog after reading:
+
+WHILE expr DO cmd
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+cmd EOF 
+(?)
+
+** In state 39, looking ahead at SEQ, shifting is permitted
+** because of the following sub-derivation:
+
+WHILE expr DO cmd 
+              cmd . SEQ cmd 
+
+** In state 39, looking ahead at SEQ, reducing production
+** cmd -> WHILE expr DO cmd
+** is permitted because of the following sub-derivation:
+
+cmd SEQ cmd // lookahead token appears
+WHILE expr DO cmd . 
+
+** Conflict (shift/reduce) in state 38.
+** Token involved: SEQ
+** This state is reached from prog after reading:
+
+IF expr THEN cmd ELSE cmd
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+cmd EOF 
+(?)
+
+** In state 38, looking ahead at SEQ, shifting is permitted
+** because of the following sub-derivation:
+
+IF expr THEN cmd ELSE cmd 
+                      cmd . SEQ cmd 
+
+** In state 38, looking ahead at SEQ, reducing production
+** cmd -> IF expr THEN cmd ELSE cmd
+** is permitted because of the following sub-derivation:
+
+cmd SEQ cmd // lookahead token appears
+IF expr THEN cmd ELSE cmd . 
