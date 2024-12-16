@@ -50,4 +50,13 @@ let bottom_mem : mem = fun l -> raise (UnboundLoc l)
 
 let state0 = make_state [bottom_env] bottom_mem 0
 
+let bindvar (st : state) x v =
+  let env = topenv st in
+  match (env x, v) with
+  | IVar l, Int _ | BVar l, Bool _ ->
+      let mem' = bind_mem st.memory l v in
+      setmem st mem'
+  | IVar _, Bool _ -> raise (TypeError "Can't assign a bool to an int variable")
+  | BVar _, Int _ -> raise (TypeError "Can't assign an int to an bool variable")
+
 type conf = St of state | Cmd of cmd * state
