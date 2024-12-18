@@ -1,0 +1,7 @@
+(library
+ (name funLib)
+ (libraries nice_parser))
+
+(menhir (modules parser))
+
+(ocamllex lexer)
