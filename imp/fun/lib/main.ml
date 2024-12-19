@@ -2,6 +2,10 @@ open Ast
 open Types
 open Prettyprint
 
+(*
+  opam install nice_parser
+  https://github.com/smolkaj/nice-parser
+*)
 module P = Nice_parser.Make (struct
   type result = Ast.prog
   type token = Parser.token
@@ -10,6 +14,7 @@ module P = Nice_parser.Make (struct
   include Lexer
 end)
 
+(* Turn on nice parser errors *)
 let _ = P.pp_exceptions ()
 
 let parse = P.parse_string
@@ -158,7 +163,15 @@ and trace1 : conf -> conf = function
           (* (match trace1_expr e st with
              | st', True -> Cmd (Seq (cbody, c), st')
              | st', False -> St st'
-             | st', e' -> Cmd (While (e', cbody), st')) *))
+             | st', e' -> Cmd (While (e', cbody), st'))
+
+             ^^^ This code doesn't work because when it produces the sequence,
+             the condition expression has been fully reduced!
+
+             The simplest way to "remember" the original guard expression is
+             by the If trick used above.
+          *)
+        )
   | St _ -> raise NoRuleApplies
 
 let trace (n_steps : int) (Prog (ds, c) : prog) =
